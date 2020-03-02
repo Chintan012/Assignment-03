@@ -27,9 +27,6 @@ class ProductList extends React.Component {
         }).catch(err => {
             alert("Error in sending data to server: " + err.message);
         });
-        // const data = await graphQLFetch(query);
-
-        // this.setState({ myProducts: data.productList });
     }
 
     createProduct(myProduct) {
@@ -128,7 +125,7 @@ class ProductAdd extends React.Component {
         e.preventDefault();
         const form = document.forms.productAddForm;
         const price = form.price.value;
-        const product = { product_name: form.product.value, product_price: price.substring(1, price.length), product_category: form.productCategory.value, product_image: form.image.value };
+        const product = { product_name: form.product.value, product_price: parseFloat(price.substring(1, price.length)), product_category: form.productCategory.value, product_image: form.image.value };
         this.props.createProduct(product);
         form.product.value = "";
         form.price.value = "$";
@@ -159,7 +156,7 @@ class ProductAdd extends React.Component {
                             React.createElement(
                                 'option',
                                 null,
-                                'Shirts'
+                                'Shirt'
                             ),
                             React.createElement(
                                 'option',
@@ -169,12 +166,12 @@ class ProductAdd extends React.Component {
                             React.createElement(
                                 'option',
                                 null,
-                                'Jackets'
+                                'Sweater'
                             ),
                             React.createElement(
                                 'option',
                                 null,
-                                'Sweaters'
+                                'Jacket'
                             ),
                             React.createElement(
                                 'option',
@@ -251,16 +248,17 @@ function ProductRow(props) {
     );
 };
 
-async function graphQLFetch(query) {
-    const response = await fetch('/graphql', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
-    });
-    const body = await response.text();
-    const result = JSON.parse(body, jsonDateReviver);
-    return result.data;
-}
+// async function graphQLFetch(query) {
+//   const response = await fetch('/graphql', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ query })
+//   });
+//   const body = await response.text();
+//   const result = JSON.parse(body);
+//   return result.data;
+// }
+
 
 const element = React.createElement(ProductList, null);
 

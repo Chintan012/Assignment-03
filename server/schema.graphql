@@ -1,5 +1,5 @@
 enum Category {
-  Shirts
+  Shirt
   Jeans
   Jackets
   Sweaters
@@ -10,14 +10,14 @@ type Product {
   id: Int!
   product_category: Category!
   product_name: String!
-  product_price: String!
+  product_price: Float!
   product_image: String!
 }
 
 input InventoryInputs {
   product_category: Category
   product_name: String
-  product_price: String
+  product_price: Float
   product_image: String
 }
 

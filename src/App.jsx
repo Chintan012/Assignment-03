@@ -27,9 +27,7 @@ class ProductList extends React.Component {
       }).catch(err => {
           alert("Error in sending data to server: " + err.message);
       });
-      // const data = await graphQLFetch(query);
-
-      // this.setState({ myProducts: data.productList });
+      
 
   }
 
@@ -97,7 +95,7 @@ class ProductAdd extends React.Component {
       e.preventDefault();
       const form = document.forms.productAddForm
       const price = form.price.value
-      const product = { product_name: form.product.value, product_price: price.substring(1, price.length), product_category: form.productCategory.value, product_image: form.image.value }
+      const product = { product_name: form.product.value, product_price: parseFloat(price.substring(1, price.length)), product_category: form.productCategory.value, product_image: form.image.value }
       this.props.createProduct(product)
       form.product.value = "";
       form.price.value = "$";
@@ -112,10 +110,10 @@ class ProductAdd extends React.Component {
                       <div className="column">
                           <h4 className="addFormTitle">Product Category</h4>
                           <select name="productCategory">
-                              <option >Shirts</option>
+                              <option >Shirt</option>
                               <option >Jeans</option>
-                              <option >Jackets</option>
-                              <option >Sweaters</option>
+                              <option >Sweater</option>
+                              <option >Jacket</option>
                               <option >Accessories</option>
                           </select>
 
@@ -151,17 +149,6 @@ function ProductRow(props) {
       </tr>
   );
 };
-
-async function graphQLFetch(query) {
-  const response = await fetch('/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query })
-  });
-  const body = await response.text();
-  const result = JSON.parse(body, jsonDateReviver);
-  return result.data;
-}
 
 
 const element = <ProductList />
